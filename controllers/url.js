@@ -1,6 +1,7 @@
 const short = require("shortid");
 
 const { URL } = require("../model/url");
+const { reset } = require("nodemon");
 
 async function handleGenrateShortURL(req, res) {
   const body = req.body;
@@ -11,9 +12,19 @@ async function handleGenrateShortURL(req, res) {
     shortID: shortId,
     redirectURL: body.url,
     vistHistory: [],
+    createdBy: req.user._id,
   });
 
-  res.json({ id: shortId });
+  return res.render("home", { id: shortId });
 }
 
-module.exports = { handleGenrateShortURL };
+async function handleAnalytics(req, res) {
+  const id = req.params.id;
+  const analyis = await URL.findOne({ id });
+  res.json({
+    totalClicks: analyis.vistHistory.length,
+    analytics: analyis.vistHistory,
+  });
+}
+
+module.exports = { handleGenrateShortURL, handleAnalytics };
