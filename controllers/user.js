@@ -24,9 +24,8 @@ async function handleUserLogin(req, res, next) {
   const cheackUser = await USER.findOne({ email, password });
   if (!cheackUser) return res.status(404).render("login");
 
-  const sessionId = uuidv4();
-  setUser(sessionId, cheackUser);
-  res.cookie("uid", sessionId);
+  const token = setUser(cheackUser);
+  res.cookie("uid", token);
 
   return res.redirect("/");
 }

@@ -1,7 +1,6 @@
 const short = require("shortid");
 
 const { URL } = require("../model/url");
-const { reset } = require("nodemon");
 
 async function handleGenrateShortURL(req, res) {
   const body = req.body;
