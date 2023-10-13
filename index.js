@@ -41,7 +41,7 @@ app.get("/url/:shortId", async (req, res) => {
   res.redirect(entry.redirectURL);
 });
 
-const PORT = 3000;
+const PORT = 3001;
 connectMongoDB()
   .then(() => console.log("MongoDB Connected!"))
   .catch((err) => console.log("ERROR:", err));
